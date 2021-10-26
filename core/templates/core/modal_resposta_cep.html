@@ -1,0 +1,48 @@
+<form method="post" action="{% url 'core:ajax_pesquisar_endereco' %}" class="js-consulta-cep-form">
+    {% csrf_token %}
+    <div class="modal-header">
+        <h5 class="modal-title">Resultado da consulta</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="table-responsive">
+            {% if not resp %}
+                <p class="alert alert-warning">Consulta sem resultado.</p>
+            {% else %}
+            <table class="table table-striped">
+                {% for endereco in resp %}
+                {% if forloop.first %}
+                <thead class="bg-primary white">
+                <tr>
+                    <th colspan="1">#</th>
+                    <th>Logradouro</th>
+                    <th>Bairro</th>
+                    <th>Cidade</th>
+                    <th>UF</th>
+                    <th class="text-center" colspan="2">CEP</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% endif %}
+                <tr>
+                    <td colspan="1">{{ forloop.counter }}</td>
+                    <td id="logradouro-{{ forloop.counter }}">{{ endereco.logradouro }}</td>
+                    <td id="bairro-{{ forloop.counter }}">{{ endereco.bairro }}</td>
+                    <td id="localidade-{{ forloop.counter }}">{{ endereco.localidade }}</td>
+                    <td id="uf-{{ forloop.counter }}">{{ endereco.uf }}</td>
+                    <td id="cep-{{ forloop.counter }}" colspan="2" class="text-center"><a href="#" id="{{ forloop.counter }}" onclick="atualizarCep(this)">{{ endereco.cep }}</a></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+    </div>
+</form>
+

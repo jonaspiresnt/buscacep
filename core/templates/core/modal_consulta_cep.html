@@ -1,0 +1,22 @@
+<form method="post" action="{% url 'core:ajax_pesquisar_endereco' %}" class="js-consulta-cep-form">
+    <div class="modal-header">
+        <h5 class="modal-title">Consultar endereço</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="form-group">
+            <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12 {% if form.consulta.errors %}has-error{% endif %}">
+                <label for="id_consulta">Endereço ou CEP:</label>
+                <input type="text" name="consulta" id="id_consulta" class="form-control" />
+                <p class="help-block"><small>Não utilize nº de casa/apto/lote/prédio ou abreviação</small></p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Consultar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+    </div>
+</form>
